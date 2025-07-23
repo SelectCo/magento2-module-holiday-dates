@@ -1,0 +1,15 @@
+{
+  "selectco_holiday_dates": {
+    "column": {
+      "holiday_dates_id": true,
+      "date": true,
+      "name": true
+    },
+    "index": {
+      "SELECTCO_HOLIDAY_DATES_HOLIDAY_DATES_ID": true
+    },
+    "constraint": {
+      "PRIMARY": true
+    }
+  }
+}
