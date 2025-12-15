@@ -1,6 +1,8 @@
 # SelectCo Holiday Dates
 
-Magento 2 module that stores and exposes a list of public/bank holiday dates for use in checkout, shipping lead‑time calculations, and other business logic.
+This Magento 2 module provides public holiday dates for use in delivery scheduling, order cutoff logic, and other date-based functionality.
+
+The module retrieves up-to-date public holiday information from an external public API, removing the need to manually maintain holiday calendars.
 
 It provides:
 - Admin configuration for the source API and locale (country/sub‑country)
@@ -8,6 +10,33 @@ It provides:
 - CLI commands to fetch/update and purge stored dates
 - Helper methods to retrieve configured values and the list of dates for application code
 - Admin UI (grid/form) to review/manage dates
+- Retrieves public holidays by country and year 
+- Uses ISO 3166-1 alpha-2 country codes 
+- Automatically stays current with official holiday data 
+- Suitable for delivery date logic, blackout dates, and scheduling rules 
+- Lightweight and easy to integrate
+
+## Holiday Data Source
+
+This module uses the Nager.Date public API as its source of public holiday data.
+
+Nager.Date is an open-source project that provides official public holiday information for countries worldwide.
+
+Project repository: https://github.com/nager/Nager.Date
+
+Documentation: https://github.com/nager/Nager.Date/blob/main/README.md
+
+### How It Works
+Holiday data is retrieved via the Nager.Date REST API using the following endpoint pattern:
+
+```
+https://date.nager.at/api/v3/publicholidays/{year}/{countryCode}
+```
+Where:
+ - year is the calendar year (e.g. 2025)
+ - countryCode is an ISO 3166-1 alpha-2 country code (e.g. US, GB, DE)
+ 
+The API returns a JSON response containing public holiday dates, which are then used by the module within Magento. No authentication is required to access the Nager.Date public API.
 
 ## Requirements
 - Magento 2 (tested with 2.3.5)
@@ -79,8 +108,20 @@ getHolidayDates() returns an array of date strings (Y-m-d) from the stored entit
 - Check Magento system and exception logs for errors during updates
 - Verify SelectCo Core module is installed and enabled
 
+## Credits & Attribution
+
+This module relies on public holiday data provided by the Nager.Date project.
+
+ - © Nager.Date contributors
+ - https://github.com/nager/Nager.Date
+
+All holiday data remains the responsibility of the Nager.Date service and its data sources.
+
 ## License
-Proprietary. See composer.json.
+
+This module is licensed under the Open Software License (OSL 3.0).
+
+Use of holiday data obtained via the Nager.Date API is subject to the Nager.Date project’s license and terms.
 
 ## Support
 If you have a feature request or spotted a bug or a technical problem, create a GitHub issue.
